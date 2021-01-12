@@ -13,10 +13,26 @@ def neuron(inputs: Vector, weights: Vector, activation_func : ActivationFunc) ->
 def step(x: float) -> float:
     return 1 if x>0 else 0
 
-weights = [-0.25, 1, 0.45]
+#weights for multi nueron :
+NAND = [1.5,-1,-1]
+OR=[0.5,1,1]
+AND = [-1,1,1]
+def xor_net(inputs: Vector) ->float:
+    return neuron(
+        inputs=[
+            neuron(inputs, NAND,step),
+            neuron(inputs,OR,step)
+        ],
+        weights=AND, activation_func=step
+    )
 
-glen = [-0.20,0.18]
-tal = [0.6,-0.41]
+#testing multipile NN
 
-print("glen", neuron(glen,weights,step))
-print("tal", neuron(tal,weights,step))
+inputs = [
+    [0,0],
+    [1,0],
+    [1,1],
+    [0,1]
+]
+for i in inputs:
+    print(i, xor_net(i))
